@@ -12,7 +12,7 @@ import (
 
 func main() {
 	dsn := flag.String("mysql", "", "mysql data source name")
-	address := flag.String("port", ":8080", "server address")
+	port := flag.String("port", "8080", "listen port")
 	flag.Parse()
 
 	db, err := mysql.NewDB(*dsn)
@@ -27,5 +27,5 @@ func main() {
 	router := http.NewRouter(ctrlEnv)
 	router.Set()
 
-	router.Run(*address)
+	router.Run(*port)
 }
