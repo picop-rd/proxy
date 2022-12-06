@@ -7,7 +7,7 @@ import (
 )
 
 type Env interface {
-	Get(ctx context.Context) ([]entity.Env, error)
+	Get(ctx context.Context, id string) (entity.Env, error)
 	Upsert(ctx context.Context, env []entity.Env) error
 	Delete(ctx context.Context, ids []string) error
 }
