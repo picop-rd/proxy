@@ -19,5 +19,5 @@ func main() {
 	router := http.NewRouter(ctrlEnv)
 	router.Set()
 
-	router.Run(*port)
+	router.Run(":" + *port)
 }
