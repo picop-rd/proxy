@@ -38,7 +38,7 @@ func (e *Env) Get(c echo.Context) error {
 
 func (e *Env) Post(c echo.Context) error {
 	envs := []entity.Env{}
-	if err := c.Bind(envs); err != nil {
+	if err := c.Bind(&envs); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest)
 	}
 
