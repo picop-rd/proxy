@@ -9,18 +9,17 @@ import (
 
 func main() {
 	propagate := flag.Bool("propagate", true, "header propagation?")
-	defalutAddr := flag.String("default", "", "defalut address")
+	defaultAddr := flag.String("default-addr", "", "defalut address")
 	port := flag.String("port", "8081", "listen port")
 	flag.Parse()
 
-	envRepo := inmemory.NewEnv()
+	repoEnv := inmemory.NewEnv()
 	server := &proxy.Server{
-		Env:                         envRepo,
+		Env:                         repoEnv,
 		GetEnvIDFromHeaderValueFunc: proxy.GetEnvIDFromBaggage,
 		Propagate:                   *propagate,
-		DefaultAddr:                 *defalutAddr,
+		DefaultAddr:                 *defaultAddr,
 	}
 
 	server.Start(":" + *port)
-
 }
