@@ -19,14 +19,14 @@ func NewEnv() *Env {
 	}
 }
 
-func (e *Env) Get(_ context.Context, id string) (entity.Env, error) {
+func (e *Env) Get(_ context.Context) ([]entity.Env, error) {
 	return entity.Env{}, nil
 }
 
-func (e *Env) Upsert(_ context.Context, env entity.Env) error {
+func (e *Env) Upsert(_ context.Context, env []entity.Env) error {
 	return nil
 }
 
-func (e *Env) Delete(_ context.Context, id string) error {
+func (e *Env) Delete(_ context.Context, ids []string) error {
 	return nil
 }

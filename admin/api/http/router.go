@@ -42,8 +42,8 @@ func NewRouter(env *controller.Env) *Router {
 func (r *Router) Set() {
 	admin := r.echo.Group("/admin")
 
-	env := admin.Group("/env")
-	env.GET("/:env-id", r.env.Get)
+	env := admin.Group("/envs")
+	env.GET("", r.env.Get)
 }
 
 func (r *Router) Run(address string) {
