@@ -2,6 +2,7 @@ package controller
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/hiroyaonoe/bcop-proxy/admin/usecase"
@@ -29,9 +30,6 @@ func (e *Env) Get(c echo.Context) error {
 		if errors.Is(err, entity.ErrNotFound) {
 			return echo.NewHTTPError(http.StatusNotFound)
 		}
-		if errors.Is(err, entity.ErrInvalid) {
-			return echo.NewHTTPError(http.StatusBadRequest)
-		}
 		log.Error().Err(err).Msg("unexpected error GET /admin/env/:env-id")
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
@@ -42,11 +40,16 @@ func (e *Env) Get(c echo.Context) error {
 func (e *Env) Post(c echo.Context) error {
 	envs := []entity.Env{}
 	if err := c.Bind(&envs); err != nil {
+		log.Debug().Err(err).Msg("aaa")
 		return echo.NewHTTPError(http.StatusBadRequest)
 	}
 
+	log.Debug().Str("env", fmt.Sprintf("%#v", envs)).Send()
 	err := e.uc.Register(c.Request().Context(), envs)
 	if err != nil {
+		if errors.Is(err, entity.ErrInvalid) {
+			return echo.NewHTTPError(http.StatusBadRequest)
+		}
 		log.Error().Err(err).Msg("unexpected error POST /admin/envs")
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}

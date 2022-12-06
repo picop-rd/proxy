@@ -6,7 +6,7 @@ type Env struct {
 }
 
 func (e *Env) Validate() error {
-	if len(e.EnvID) != 0 || len(e.Destination) != 0 {
+	if len(e.EnvID) == 0 || len(e.Destination) == 0 {
 		return ErrInvalid
 	}
 	return nil
