@@ -18,13 +18,18 @@ func NewEnv(uc *usecase.Env) *Env {
 }
 
 func (e *Env) Get(c echo.Context) error {
-	envs, err := e.uc.Get(c.Request().Context())
+	envID := c.Param("env-id")
+	if len(envID) == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest)
+	}
+
+	env, err := e.uc.Get(c.Request().Context(), envID)
 	if err != nil {
-		log.Error().Err(err).Msg("unexpected error GET /admin/env")
+		log.Error().Err(err).Msg("unexpected error GET /admin/env/:env-id")
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
-	return c.JSON(http.StatusOK, envs)
+	return c.JSON(http.StatusOK, env)
 }
 
 func (e *Env) Post(c echo.Context) error {

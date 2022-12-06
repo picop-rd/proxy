@@ -44,7 +44,6 @@ func (r *Router) Set() {
 
 	env := admin.Group("/envs")
 	env.GET("", r.env.Get)
-	env.POST("", r.env.Post)
 }
 
 func (r *Router) Run(address string) {
