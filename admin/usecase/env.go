@@ -16,12 +16,12 @@ func NewEnv(repo repository.Env) *Env {
 	return &Env{repo: repo}
 }
 
-func (e *Env) Get(ctx context.Context, id string) (entity.Env, error) {
-	env, err := e.repo.Get(ctx, id)
+func (e *Env) Get(ctx context.Context) ([]entity.Env, error) {
+	envs, err := e.repo.Get(ctx)
 	if err != nil {
-		return entity.Env{}, fmt.Errorf("failed to get env from repository: %w", err)
+		return nil, fmt.Errorf("failed to get envs from repository: %w", err)
 	}
-	return env, nil
+	return envs, nil
 }
 
 func (e *Env) Register(ctx context.Context, env entity.Env) error {
