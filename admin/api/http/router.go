@@ -49,7 +49,7 @@ func (r *Router) Set() {
 func (r *Router) Run(address string) {
 	go func() {
 		if err := r.echo.Start(address); err != nil && err != http.ErrServerClosed {
-			log.Fatal().Msg("shutting down the server")
+			log.Fatal().Err(err).Msg("shutting down the server")
 		}
 	}()
 
