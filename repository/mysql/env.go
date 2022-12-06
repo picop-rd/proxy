@@ -1,6 +1,8 @@
 package mysql
 
 import (
+	"context"
+
 	"github.com/hiroyaonoe/bcop-proxy/entity"
 	"github.com/hiroyaonoe/bcop-proxy/repository"
 )
@@ -15,14 +17,14 @@ func NewEnv(db *DB) *Env {
 	return &Env{db: db}
 }
 
-func (e *Env) Get(id string) (entity.Env, error) {
+func (e *Env) Get(ctx context.Context, id string) (entity.Env, error) {
 	return entity.Env{}, nil
 }
 
-func (e *Env) Upsert(env entity.Env) error {
+func (e *Env) Upsert(ctx context.Context, env entity.Env) error {
 	return nil
 }
 
-func (e *Env) Delete(id string) error {
+func (e *Env) Delete(ctx context.Context, id string) error {
 	return nil
 }
