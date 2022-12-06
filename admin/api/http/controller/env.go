@@ -29,6 +29,9 @@ func (e *Env) Get(c echo.Context) error {
 		if errors.Is(err, entity.ErrNotFound) {
 			return echo.NewHTTPError(http.StatusNotFound)
 		}
+		if errors.Is(err, entity.ErrInvalid) {
+			return echo.NewHTTPError(http.StatusBadRequest)
+		}
 		log.Error().Err(err).Msg("unexpected error GET /admin/env/:env-id")
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}

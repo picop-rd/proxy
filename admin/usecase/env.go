@@ -25,6 +25,12 @@ func (e *Env) Get(ctx context.Context, id string) (entity.Env, error) {
 }
 
 func (e *Env) Register(ctx context.Context, envs []entity.Env) error {
+	for _, env := range envs {
+		err := env.Validate()
+		if err != nil {
+			return fmt.Errorf("invalid env: %w", err)
+		}
+	}
 	err := e.repo.Upsert(ctx, envs)
 	if err != nil {
 		return fmt.Errorf("failed to register envs to repository: %w", err)

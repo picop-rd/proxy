@@ -24,6 +24,9 @@ func (e *Env) Get(_ context.Context, id string) (entity.Env, error) {
 	if !ok {
 		return entity.Env{}, entity.ErrNotFound
 	}
+	if err := env.Validate(); err != nil {
+		return entity.Env{}, entity.ErrNotFound
+	}
 	return env, nil
 }
 
