@@ -29,7 +29,10 @@ func (e *Env) Get(_ context.Context) ([]entity.Env, error) {
 	return envs, nil
 }
 
-func (e *Env) Upsert(_ context.Context, env []entity.Env) error {
+func (e *Env) Upsert(_ context.Context, envs []entity.Env) error {
+	for _, v := range envs {
+		e.db[v.EnvID] = v
+	}
 	return nil
 }
 
