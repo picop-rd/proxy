@@ -20,7 +20,13 @@ func NewEnv() *Env {
 }
 
 func (e *Env) Get(_ context.Context) ([]entity.Env, error) {
-	return entity.Env{}, nil
+	envs := make([]entity.Env, len(e.db))
+	i := 0
+	for _, v := range e.db {
+		envs[i] = v
+		i++
+	}
+	return envs, nil
 }
 
 func (e *Env) Upsert(_ context.Context, env []entity.Env) error {
