@@ -1,6 +1,6 @@
 .PHONY:run-admin
 run-admin: fmt
-	go run cmd/bcop-admin/main.go --port 8080 --mysql "bcop:BCoP-2022@tcp(localhost:3306)/bcop?parseTime=true&collation=utf8mb4_bin"
+	go run cmd/bcop-admin/main.go --port 8080
 
 .PHONY:build
 build: test
