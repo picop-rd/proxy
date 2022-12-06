@@ -25,6 +25,7 @@ func main() {
 	ucEnv := usecase.NewEnv(repoEnv)
 	ctrlEnv := controller.NewEnv(ucEnv)
 	router := http.NewRouter(ctrlEnv)
+	router.Set()
 
 	router.Run(*address)
 }

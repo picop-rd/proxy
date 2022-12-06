@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/hiroyaonoe/bcop-proxy/entity"
 	"github.com/hiroyaonoe/bcop-proxy/repository"
@@ -16,7 +17,11 @@ func NewEnv(repo repository.Env) *Env {
 }
 
 func (e *Env) Get(ctx context.Context, id string) (entity.Env, error) {
-	return entity.Env{}, nil
+	env, err := e.repo.Get(ctx, id)
+	if err != nil {
+		return entity.Env{}, fmt.Errorf("failed to get env from repository: %w", err)
+	}
+	return env, nil
 }
 
 func (e *Env) Register(ctx context.Context, env entity.Env) error {

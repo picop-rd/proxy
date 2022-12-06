@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/hiroyaonoe/bcop-proxy/entity"
 	"github.com/hiroyaonoe/bcop-proxy/repository"
@@ -18,7 +19,12 @@ func NewEnv(db *DB) *Env {
 }
 
 func (e *Env) Get(ctx context.Context, id string) (entity.Env, error) {
-	return entity.Env{}, nil
+	var env entity.Env
+	err := e.db.GetContext(ctx, env, "SELECT (env-id, destination) FROM env-id = $1", id)
+	if err != nil {
+		return entity.Env{}, fmt.Errorf("failed to get env from mysql: %w", err)
+	}
+	return env, nil
 }
 
 func (e *Env) Upsert(ctx context.Context, env entity.Env) error {

@@ -39,6 +39,13 @@ func NewRouter(env *controller.Env) *Router {
 	}
 }
 
+func (r *Router) Set() {
+	admin := r.echo.Group("/admin")
+
+	env := admin.Group("/env")
+	env.GET("/:env-id", r.env.Get)
+}
+
 func (r *Router) Run(address string) {
 	go func() {
 		if err := r.echo.Start(address); err != nil && err != http.ErrServerClosed {
