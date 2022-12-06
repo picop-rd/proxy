@@ -33,5 +33,9 @@ func (e *Env) Register(ctx context.Context, envs []entity.Env) error {
 }
 
 func (e *Env) Delete(ctx context.Context, id string) error {
+	err := e.repo.Delete(ctx, id)
+	if err != nil {
+		return fmt.Errorf("failed to delete env from repository: %w", err)
+	}
 	return nil
 }

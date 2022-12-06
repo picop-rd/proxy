@@ -44,6 +44,7 @@ func (r *Router) Set() {
 
 	admin.GET("/env/:env-id", r.env.Get)
 	admin.POST("/envs", r.env.Post)
+	admin.DELETE("/env/:env-id", r.env.Delete)
 }
 
 func (r *Router) Run(address string) {

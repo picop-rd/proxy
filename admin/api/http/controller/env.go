@@ -50,3 +50,17 @@ func (e *Env) Post(c echo.Context) error {
 
 	return c.NoContent(http.StatusCreated)
 }
+
+func (e *Env) Delete(c echo.Context) error {
+	envID := c.Param("env-id")
+	if len(envID) == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest)
+	}
+
+	err := e.uc.Delete(c.Request().Context(), envID)
+	if err != nil {
+		log.Error().Err(err).Msg("unexpected error DELETE /admin/env/:env-id")
+	}
+
+	return c.NoContent(http.StatusOK)
+}

@@ -34,6 +34,7 @@ func (e *Env) Upsert(_ context.Context, envs []entity.Env) error {
 	return nil
 }
 
-func (e *Env) Delete(_ context.Context, ids []string) error {
+func (e *Env) Delete(_ context.Context, id string) error {
+	e.db[id] = entity.Env{}
 	return nil
 }
