@@ -20,7 +20,7 @@ func NewEnv(db *DB) *Env {
 
 func (e *Env) Get(ctx context.Context, id string) (entity.Env, error) {
 	var env entity.Env
-	err := e.db.GetContext(ctx, env, "SELECT (env-id, destination) FROM env-id = $1", id)
+	err := e.db.GetContext(ctx, env, "SELECT (env_id, destination) FROM envs WHERE env_id = $1", id)
 	if err != nil {
 		return entity.Env{}, fmt.Errorf("failed to get env from mysql: %w", err)
 	}
