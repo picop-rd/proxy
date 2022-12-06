@@ -18,10 +18,10 @@ type Server struct {
 	DefaultAddr                 string
 }
 
-func (s *Server) Start(address string) error {
+func (s *Server) Start(address string) {
 	ln, err := net.Listen("tcp", address)
 	if err != nil {
-		return err
+		log.Fatal().Err(err).Str("listen address", address).Msg("failed to listen")
 	}
 	bln := bcopnet.NewListener(ln)
 	defer bln.Close()
@@ -30,7 +30,7 @@ func (s *Server) Start(address string) error {
 	for {
 		bconn, err := bln.AcceptWithBCoPConn()
 		if err != nil {
-			return err
+			log.Fatal().Err(err).Str("listen address", address).Msg("failed to accept")
 		}
 
 		go s.handle(bconn)
@@ -81,6 +81,17 @@ func (s *Server) handle(clientConn *bcopnet.Conn) {
 	}
 
 	serverConn, err := net.Dial("tcp", serverAddr)
+	if err != nil {
+		log.Error().
+			Err(err).
+			Stringer("client local address", clientConn.LocalAddr()).
+			Stringer("client remote address", clientConn.RemoteAddr()).
+			Str("env-id", envID).
+			Str("server address", serverAddr).
+			Msg("failed to dial server")
+		return
+	}
+	defer serverConn.Close()
 
 	if s.Propagate {
 		_, err := header.WriteTo(serverConn)

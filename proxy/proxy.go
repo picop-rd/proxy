@@ -8,9 +8,6 @@ import (
 )
 
 func proxy(client, server net.Conn) error {
-	defer client.Close()
-	defer server.Close()
-
 	var eg errgroup.Group
 
 	eg.Go(func() error { return relay(client, server) })
