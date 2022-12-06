@@ -20,7 +20,11 @@ func NewEnv() *Env {
 }
 
 func (e *Env) Get(_ context.Context, id string) (entity.Env, error) {
-	return e.db[id], nil
+	env, ok := e.db[id]
+	if !ok {
+		return entity.Env{}, entity.ErrNotFound
+	}
+	return env, nil
 }
 
 func (e *Env) Upsert(_ context.Context, envs []entity.Env) error {
