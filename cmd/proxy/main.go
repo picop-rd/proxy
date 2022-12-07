@@ -2,7 +2,8 @@ package main
 
 import (
 	"flag"
-	"sync"
+	"os"
+	"os/signal"
 
 	"github.com/hiroyaonoe/bcop-proxy/proxy/admin/api/http"
 	"github.com/hiroyaonoe/bcop-proxy/proxy/admin/api/http/controller"
@@ -34,10 +35,12 @@ func main() {
 		DefaultAddr:                 *defaultAddr,
 	}
 
-	var wg sync.WaitGroup
-
-	wg.Add(1)
 	go router.Run(":" + *adminPort)
+	defer router.Close()
 	go server.Start(":" + *proxyPort)
-	wg.Wait()
+	defer server.Close()
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, os.Interrupt)
+	<-quit
 }

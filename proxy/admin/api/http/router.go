@@ -3,8 +3,6 @@ package http
 import (
 	"context"
 	"net/http"
-	"os"
-	"os/signal"
 	"time"
 
 	"github.com/hiroyaonoe/bcop-proxy/proxy/admin/api/http/controller"
@@ -48,17 +46,15 @@ func (r *Router) Set() {
 }
 
 func (r *Router) Run(address string) {
-	go func() {
-		if err := r.echo.Start(address); err != nil && err != http.ErrServerClosed {
-			log.Fatal().Err(err).Msg("shutting down the server")
-		}
-	}()
+	if err := r.echo.Start(address); err != nil && err != http.ErrServerClosed {
+		log.Fatal().Err(err).Msg("shutting down the server")
+	}
+}
 
+func (r *Router) Close() {
+	log.Info().Msg("admin shotdown")
 	// Wait for interrupt signal to gracefully shutdown the server with a timeout of 10 seconds.
 	// Use a buffered channel to avoid missing signals as recommended for signal.Notify
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, os.Interrupt)
-	<-quit
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	if err := r.echo.Shutdown(ctx); err != nil {

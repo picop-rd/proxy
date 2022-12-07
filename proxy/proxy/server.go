@@ -16,25 +16,36 @@ type Server struct {
 	GetEnvIDFromHeaderValueFunc func(string) (string, error)
 	Propagate                   bool
 	DefaultAddr                 string
+	closed                      bool
+	listener                    bcopnet.Listener
 }
 
 func (s *Server) Start(address string) {
+	s.closed = false
 	ln, err := net.Listen("tcp", address)
 	if err != nil {
 		log.Fatal().Err(err).Str("listen address", address).Msg("failed to listen")
 	}
-	bln := bcopnet.NewListener(ln)
-	defer bln.Close()
+	s.listener = bcopnet.NewListener(ln)
+	defer s.listener.Close()
 
 	log.Info().Msg("starting server")
 	for {
-		bconn, err := bln.AcceptWithBCoPConn()
+		bconn, err := s.listener.AcceptWithBCoPConn()
 		if err != nil {
+			if s.closed {
+				break
+			}
 			log.Fatal().Err(err).Str("listen address", address).Msg("failed to accept")
 		}
-
 		go s.handle(bconn)
 	}
+}
+
+func (s *Server) Close() {
+	log.Info().Msg("proxy shutdown")
+	s.closed = true
+	s.listener.Close()
 }
 
 func (s *Server) handle(clientConn *bcopnet.Conn) {
