@@ -24,9 +24,10 @@ func NewServer(env *controller.Env) *Server {
 		LogStatus: true,
 		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
 			log.Info().
+				Str("Method", v.Method).
 				Str("URI", v.URI).
-				Int("status", v.Status).
-				Msg("request")
+				Int("Status", v.Status).
+				Msg("Request")
 
 			return nil
 		},
@@ -52,7 +53,7 @@ func (s *Server) Run(address string) {
 }
 
 func (s *Server) Close() {
-	log.Info().Msg("admin shotdown")
+	log.Info().Msg("admin shutdown")
 	// Wait for interrupt signal to gracefully shutdown the server with a timeout of 10 seconds.
 	// Use a buffered channel to avoid missing signals as recommended for signal.Notify
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
