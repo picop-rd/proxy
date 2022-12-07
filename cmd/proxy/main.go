@@ -25,20 +25,20 @@ func main() {
 
 	ucEnv := usecase.NewEnv(repoEnv)
 	ctrlEnv := controller.NewEnv(ucEnv)
-	router := http.NewRouter(ctrlEnv)
-	router.Set()
+	adminSrv := http.NewServer(ctrlEnv)
+	adminSrv.SetRoute()
 
-	server := &proxy.Server{
+	proxySrv := &proxy.Server{
 		Env:                         repoEnv,
 		GetEnvIDFromHeaderValueFunc: proxy.GetEnvIDFromBaggage,
 		Propagate:                   *propagate,
 		DefaultAddr:                 *defaultAddr,
 	}
 
-	go router.Run(":" + *adminPort)
-	defer router.Close()
-	go server.Start(":" + *proxyPort)
-	defer server.Close()
+	go adminSrv.Run(":" + *adminPort)
+	defer adminSrv.Close()
+	go proxySrv.Start(":" + *proxyPort)
+	defer proxySrv.Close()
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)

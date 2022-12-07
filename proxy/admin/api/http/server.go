@@ -11,12 +11,12 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-type Router struct {
+type Server struct {
 	echo *echo.Echo
 	env  *controller.Env
 }
 
-func NewRouter(env *controller.Env) *Router {
+func NewServer(env *controller.Env) *Server {
 	e := echo.New()
 
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
@@ -31,33 +31,33 @@ func NewRouter(env *controller.Env) *Router {
 			return nil
 		},
 	}))
-	return &Router{
+	return &Server{
 		echo: e,
 		env:  env,
 	}
 }
 
-func (r *Router) Set() {
-	admin := r.echo.Group("/admin")
+func (s *Server) SetRoute() {
+	admin := s.echo.Group("/admin")
 
-	admin.GET("/env/:env-id", r.env.Get)
-	admin.POST("/envs", r.env.Post)
-	admin.DELETE("/env/:env-id", r.env.Delete)
+	admin.GET("/env/:env-id", s.env.Get)
+	admin.POST("/envs", s.env.Post)
+	admin.DELETE("/env/:env-id", s.env.Delete)
 }
 
-func (r *Router) Run(address string) {
-	if err := r.echo.Start(address); err != nil && err != http.ErrServerClosed {
+func (s *Server) Run(address string) {
+	if err := s.echo.Start(address); err != nil && err != http.ErrServerClosed {
 		log.Fatal().Err(err).Msg("shutting down the server")
 	}
 }
 
-func (r *Router) Close() {
+func (s *Server) Close() {
 	log.Info().Msg("admin shotdown")
 	// Wait for interrupt signal to gracefully shutdown the server with a timeout of 10 seconds.
 	// Use a buffered channel to avoid missing signals as recommended for signal.Notify
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	if err := r.echo.Shutdown(ctx); err != nil {
+	if err := s.echo.Shutdown(ctx); err != nil {
 		log.Fatal().Err(err).Msg("failed to shutdown")
 	}
 }
