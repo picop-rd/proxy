@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/hiroyaonoe/bcop-proxy/admin/api/http/controller"
+	"github.com/hiroyaonoe/bcop-proxy/proxy/admin/api/http/controller"
 	echo "github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/rs/zerolog/log"

@@ -6,8 +6,8 @@ import (
 	"net"
 
 	bcopnet "github.com/hiroyaonoe/bcop-go/protocol/net"
-	"github.com/hiroyaonoe/bcop-proxy/entity"
-	"github.com/hiroyaonoe/bcop-proxy/repository"
+	"github.com/hiroyaonoe/bcop-proxy/proxy/entity"
+	"github.com/hiroyaonoe/bcop-proxy/proxy/repository"
 	"github.com/rs/zerolog/log"
 )
 

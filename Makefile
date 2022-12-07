@@ -1,14 +1,6 @@
-.PHONY:run-admin
-run-admin: fmt
-	go run cmd/bcop-admin/main.go --port 8080
-
 .PHONY:run-proxy
 run-proxy: fmt
-	go run cmd/bcop-proxy/main.go --port 8081 --default localhost:9000 --propagate true
-
-.PHONY:build
-build: test
-	go build
+	go run cmd/proxy/main.go --proxy-port 9000 --admin-port 9001 --default-addr localhost:9002 --propagate true
 
 .PHONY:test
 test: vet fmt

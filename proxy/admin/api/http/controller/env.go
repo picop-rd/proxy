@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/hiroyaonoe/bcop-proxy/admin/usecase"
-	"github.com/hiroyaonoe/bcop-proxy/entity"
+	"github.com/hiroyaonoe/bcop-proxy/proxy/admin/usecase"
+	"github.com/hiroyaonoe/bcop-proxy/proxy/entity"
 	echo "github.com/labstack/echo/v4"
 	"github.com/rs/zerolog/log"
 )

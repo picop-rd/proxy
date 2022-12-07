@@ -4,11 +4,11 @@ import (
 	"flag"
 	"sync"
 
-	"github.com/hiroyaonoe/bcop-proxy/admin/api/http"
-	"github.com/hiroyaonoe/bcop-proxy/admin/api/http/controller"
-	"github.com/hiroyaonoe/bcop-proxy/admin/usecase"
-	"github.com/hiroyaonoe/bcop-proxy/proxy"
-	"github.com/hiroyaonoe/bcop-proxy/repository/inmemory"
+	"github.com/hiroyaonoe/bcop-proxy/proxy/admin/api/http"
+	"github.com/hiroyaonoe/bcop-proxy/proxy/admin/api/http/controller"
+	"github.com/hiroyaonoe/bcop-proxy/proxy/admin/usecase"
+	"github.com/hiroyaonoe/bcop-proxy/proxy/proxy"
+	"github.com/hiroyaonoe/bcop-proxy/proxy/repository/inmemory"
 )
 
 func main() {
