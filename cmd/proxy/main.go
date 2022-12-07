@@ -16,7 +16,7 @@ func main() {
 
 	proxyPort := flag.String("proxy-port", "9000", "proxy listen port")
 	propagate := flag.Bool("propagate", true, "header propagation?")
-	defaultAddr := flag.String("default-addr", "", "defalut address")
+	defaultAddr := flag.String("default-addr", "", "default address")
 
 	flag.Parse()
 
