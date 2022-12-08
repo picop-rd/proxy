@@ -1,8 +1,13 @@
 package controller
 
 import (
+	"errors"
+	"net/http"
+
+	"github.com/hiroyaonoe/bcop-proxy/controller/entity"
 	"github.com/hiroyaonoe/bcop-proxy/controller/usecase"
 	echo "github.com/labstack/echo/v4"
+	"github.com/rs/zerolog/log"
 )
 
 type Proxy struct {
@@ -14,7 +19,27 @@ func NewProxy(uc *usecase.Proxy) *Proxy {
 }
 
 func (p *Proxy) Register(c echo.Context) error {
-	return nil
+	proxyID := c.Param("proxy-id")
+	if len(proxyID) == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest)
+	}
+
+	var proxy entity.Proxy
+	if err := c.Bind(&proxy); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest)
+	}
+	proxy.ProxyID = proxyID
+
+	err := p.uc.Register(c.Request().Context(), proxy)
+	if err != nil {
+		if errors.Is(err, entity.ErrInvalid) {
+			return echo.NewHTTPError(http.StatusBadRequest)
+		}
+		log.Error().Err(err).Msg("unexpected error PUT /proxy/:proxy-id/register")
+		return echo.NewHTTPError(http.StatusInternalServerError)
+	}
+
+	return c.NoContent(http.StatusOK)
 }
 
 func (p *Proxy) Activate(c echo.Context) error {
