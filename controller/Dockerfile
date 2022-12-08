@@ -1,9 +1,9 @@
 FROM golang:1.19-bullseye AS builder
 
-WORKDIR /go/src/github.com/hiroyaonoe/bcop-proxy/controller
+WORKDIR /go/src/github.com/hiroyaonoe/bcop-proxy/
 COPY . .
 
-RUN CGO_ENABLED=0 go build -o /bcop-proxy-controller ./cmd/controller/main.go
+RUN CGO_ENABLED=0 go build -o /bcop-proxy-controller ./controller/cmd/controller/main.go
 
 
 FROM scratch
