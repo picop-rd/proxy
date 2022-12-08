@@ -7,7 +7,7 @@ import (
 )
 
 type Route interface {
-	Get(ctx context.Context, proxyID, envID string) (entity.Route, error)
-	Upsert(ctx context.Context, route entity.Route) error
-	Delete(ctx context.Context, proxyID, envID string) error
+	GetWithProxyID(ctx context.Context, proxyID string) ([]entity.Route, error)
+	Upsert(ctx context.Context, routes []entity.Route) error
+	Delete(ctx context.Context, routes []entity.Route) error
 }
