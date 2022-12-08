@@ -19,7 +19,20 @@ func NewRoute(db *sqlx.DB) *Route {
 }
 
 func (r *Route) GetWithProxyID(ctx context.Context, proxyID string) ([]entity.Route, error) {
-	return nil, nil
+	var routes []entity.Route
+	query := `
+		SELECT
+			proxy_id,
+			env_id,
+			destination
+		FROM routes
+		WHERE proxy_id = ?
+	`
+	err := r.db.SelectContext(ctx, &routes, query, proxyID)
+	if err != nil {
+		return nil, err
+	}
+	return routes, nil
 }
 
 func (r *Route) Upsert(ctx context.Context, routes []entity.Route) error {

@@ -43,7 +43,17 @@ func (p *Proxy) Register(c echo.Context) error {
 }
 
 func (p *Proxy) Activate(c echo.Context) error {
-	return nil
+	proxyID := c.Param("proxy-id")
+	if len(proxyID) == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest)
+	}
+
+	routes, err := p.uc.Activate(c.Request().Context(), proxyID)
+	if err != nil {
+		log.Error().Err(err).Msg("unexpected error PUT /proxy/:proxy-id/register")
+		return echo.NewHTTPError(http.StatusInternalServerError)
+	}
+	return c.JSON(http.StatusOK, routes)
 }
 
 func (p *Proxy) Delete(c echo.Context) error {

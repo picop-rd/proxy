@@ -25,7 +25,9 @@ func main() {
 	defer db.Close()
 
 	repoProxy := mysql.NewProxy(db)
-	ucProxy := usecase.NewProxy(repoProxy)
+	repoRoute := mysql.NewRoute(db)
+
+	ucProxy := usecase.NewProxy(repoProxy, repoRoute)
 	ctrlProxy := controller.NewProxy(ucProxy)
 
 	server := http.NewServer(ctrlProxy)

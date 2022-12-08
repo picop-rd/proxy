@@ -10,10 +10,14 @@ import (
 
 type Proxy struct {
 	proxy repository.Proxy
+	route repository.Route
 }
 
-func NewProxy(proxy repository.Proxy) *Proxy {
-	return &Proxy{proxy: proxy}
+func NewProxy(proxy repository.Proxy, route repository.Route) *Proxy {
+	return &Proxy{
+		proxy: proxy,
+		route: route,
+	}
 }
 
 func (p *Proxy) Register(ctx context.Context, proxy entity.Proxy) error {
@@ -30,7 +34,22 @@ func (p *Proxy) Register(ctx context.Context, proxy entity.Proxy) error {
 }
 
 func (p *Proxy) Activate(ctx context.Context, proxyID string) ([]entity.Route, error) {
-	return nil, nil
+	proxy := entity.Proxy{
+		ProxyID:  proxyID,
+		Endpoint: "",
+		Activate: true,
+	}
+	err := p.proxy.Upsert(ctx, proxy)
+	if err != nil {
+		return nil, fmt.Errorf("failed to activate proxy on repository: %w", err)
+	}
+
+	routes, err := p.route.GetWithProxyID(ctx, proxyID)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get routes from repository: %w", err)
+	}
+	// TODO: proxyclientを通したリクエストによってrouteを追加する(キューにつめる)
+	return routes, nil
 }
 
 func (p *Proxy) Delete(ctx context.Context, proxyID string) error {
