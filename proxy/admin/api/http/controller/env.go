@@ -51,7 +51,7 @@ func (e *Env) Put(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
-	return c.NoContent(http.StatusCreated)
+	return c.NoContent(http.StatusOK)
 }
 
 func (e *Env) Delete(c echo.Context) error {
