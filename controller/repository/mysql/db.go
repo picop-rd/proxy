@@ -8,11 +8,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-type DB struct {
-	db *sqlx.DB
-}
-
-func NewDB(dsn string) (*DB, error) {
+func NewDB(dsn string) (*sqlx.DB, error) {
 	db, err := sqlx.Open("mysql", dsn)
 	if err != nil {
 		return nil, err
@@ -28,12 +24,8 @@ func NewDB(dsn string) (*DB, error) {
 	}
 	log.Info().Msg("conntected mysql server")
 
-	db.DB.SetConnMaxLifetime(time.Minute * 3)
-	db.DB.SetMaxIdleConns(100)
-	db.DB.SetMaxOpenConns(100)
-	return &DB{db: db}, nil
-}
-
-func (db *DB) Close() error {
-	return db.db.Close()
+	db.SetConnMaxLifetime(time.Minute * 3)
+	db.SetMaxIdleConns(100)
+	db.SetMaxOpenConns(100)
+	return db, nil
 }
