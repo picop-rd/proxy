@@ -20,13 +20,16 @@ func NewServer(env *controller.Env) *Server {
 	e := echo.New()
 
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
-		LogURI:    true,
-		LogStatus: true,
+		LogMethod:  true,
+		LogURI:     true,
+		LogStatus:  true,
+		LogLatency: true,
 		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
 			log.Info().
 				Str("Method", v.Method).
 				Str("URI", v.URI).
 				Int("Status", v.Status).
+				Stringer("Latency", v.Latency).
 				Msg("Request")
 
 			return nil
