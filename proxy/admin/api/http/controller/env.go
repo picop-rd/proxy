@@ -2,7 +2,6 @@ package controller
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/hiroyaonoe/bcop-proxy/proxy/admin/usecase"
@@ -40,11 +39,9 @@ func (e *Env) Get(c echo.Context) error {
 func (e *Env) Put(c echo.Context) error {
 	envs := []entity.Env{}
 	if err := c.Bind(&envs); err != nil {
-		log.Debug().Err(err).Msg("aaa")
 		return echo.NewHTTPError(http.StatusBadRequest)
 	}
 
-	log.Debug().Str("env", fmt.Sprintf("%#v", envs)).Send()
 	err := e.uc.Register(c.Request().Context(), envs)
 	if err != nil {
 		if errors.Is(err, entity.ErrInvalid) {
