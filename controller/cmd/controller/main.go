@@ -22,6 +22,7 @@ func main() {
 	if err != nil {
 		log.Fatal().Str("dsn", *dsn).Msg("failed to connect db")
 	}
+	defer db.Close()
 
 	repoProxy := mysql.NewProxy(db)
 	ucProxy := usecase.NewProxy(repoProxy)
