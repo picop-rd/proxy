@@ -42,7 +42,7 @@ func (s *Server) SetRoute() {
 	admin := s.echo.Group("/admin")
 
 	admin.GET("/env/:env-id", s.env.Get)
-	admin.PUT("/envs", s.env.Post)
+	admin.PUT("/envs", s.env.Put)
 	admin.DELETE("/env/:env-id", s.env.Delete)
 }
 
