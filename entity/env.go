@@ -1,5 +1,7 @@
 package entity
 
+import "github.com/rs/zerolog"
+
 type Env struct {
 	EnvID       string `json:"env_id"`
 	Destination string `json:"destination"`
@@ -10,4 +12,9 @@ func (e *Env) Validate() error {
 		return ErrInvalid
 	}
 	return nil
+}
+
+func (e Env) MarshalZerologObject(event *zerolog.Event) {
+	event.Str("EnvID", e.EnvID).
+		Str("Destination", e.Destination)
 }

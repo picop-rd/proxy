@@ -7,6 +7,7 @@ import (
 	"github.com/hiroyaonoe/bcop-proxy/admin/usecase"
 	"github.com/hiroyaonoe/bcop-proxy/entity"
 	echo "github.com/labstack/echo/v4"
+	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
 
@@ -28,9 +29,10 @@ func (e *Env) Get(c echo.Context) error {
 	env, err := e.uc.Get(c.Request().Context(), envID)
 	if err != nil {
 		if errors.Is(err, entity.ErrNotFound) {
+			log.Debug().Err(err).Str("envID", envID).Msg("env not found")
 			return echo.NewHTTPError(http.StatusNotFound)
 		}
-		log.Error().Err(err).Msg("unexpected error GET /admin/env/:env-id")
+		log.Error().Err(err).Str("envID", envID).Msg("unexpected error GET /admin/env/:env-id")
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
@@ -46,11 +48,15 @@ func (e *Env) Put(c echo.Context) error {
 
 	err := e.uc.Register(c.Request().Context(), envs)
 	if err != nil {
+		logenvs := zerolog.Arr()
+		for _, e := range envs {
+			logenvs = logenvs.Object(e)
+		}
 		if errors.Is(err, entity.ErrInvalid) {
-			log.Debug().Err(err).Msg("illegal envs")
+			log.Debug().Err(err).Array("envs", logenvs).Msg("illegal envs")
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
-		log.Error().Err(err).Msg("unexpected error POST /admin/envs")
+		log.Error().Err(err).Array("envs", logenvs).Msg("unexpected error POST /admin/envs")
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
@@ -66,7 +72,7 @@ func (e *Env) Delete(c echo.Context) error {
 
 	err := e.uc.Delete(c.Request().Context(), envID)
 	if err != nil {
-		log.Error().Err(err).Msg("unexpected error DELETE /admin/env/:env-id")
+		log.Error().Err(err).Str("envID", envID).Msg("unexpected error DELETE /admin/env/:env-id")
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
