@@ -1,8 +1,8 @@
 package entity
 
 type Env struct {
-	EnvID       string
-	Destination string
+	EnvID       string `json:"env_id"`
+	Destination string `json:"destination"`
 }
 
 func (e *Env) Validate() error {
