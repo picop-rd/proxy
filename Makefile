@@ -1,6 +1,6 @@
-.PHONY:run-proxy
-run-proxy: fmt
-	go run proxy/cmd/proxy/main.go --proxy-port 9000 --admin-port 9001 --default-addr localhost:9002 --propagate true
+.PHONY:run
+run: fmt
+	go run cmd/proxy/main.go --proxy-port 9000 --admin-port 9001 --default-addr localhost:9002 --propagate true
 
 .PHONY:test
 test: vet fmt

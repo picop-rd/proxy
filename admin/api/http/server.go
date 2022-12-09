@@ -5,19 +5,20 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/hiroyaonoe/bcop-proxy/controller/api/http/controller"
+	"github.com/hiroyaonoe/bcop-proxy/admin/api/http/controller"
 	echo "github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/rs/zerolog/log"
 )
 
 type Server struct {
-	echo  *echo.Echo
-	proxy *controller.Proxy
+	echo *echo.Echo
+	env  *controller.Env
 }
 
-func NewServer(proxy *controller.Proxy) *Server {
+func NewServer(env *controller.Env) *Server {
 	e := echo.New()
+
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 		LogMethod:  true,
 		LogURI:     true,
@@ -35,17 +36,17 @@ func NewServer(proxy *controller.Proxy) *Server {
 		},
 	}))
 	return &Server{
-		echo:  e,
-		proxy: proxy,
+		echo: e,
+		env:  env,
 	}
 }
 
 func (s *Server) SetRoute() {
-	proxy := s.echo.Group("/proxy/:proxy-id")
+	admin := s.echo.Group("/admin")
 
-	proxy.PUT("/register", s.proxy.Register)
-	proxy.PUT("/activate", s.proxy.Activate)
-	proxy.DELETE("", s.proxy.Delete)
+	admin.GET("/env/:env-id", s.env.Get)
+	admin.PUT("/envs", s.env.Put)
+	admin.DELETE("/env/:env-id", s.env.Delete)
 }
 
 func (s *Server) Run(address string) {
@@ -55,7 +56,7 @@ func (s *Server) Run(address string) {
 }
 
 func (s *Server) Close() {
-	log.Info().Msg("server shutdown")
+	log.Info().Msg("admin shutdown")
 	// Wait for interrupt signal to gracefully shutdown the server with a timeout of 10 seconds.
 	// Use a buffered channel to avoid missing signals as recommended for signal.Notify
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)

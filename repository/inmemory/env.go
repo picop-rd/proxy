@@ -3,8 +3,8 @@ package inmemory
 import (
 	"context"
 
-	"github.com/hiroyaonoe/bcop-proxy/proxy/entity"
-	"github.com/hiroyaonoe/bcop-proxy/proxy/repository"
+	"github.com/hiroyaonoe/bcop-proxy/entity"
+	"github.com/hiroyaonoe/bcop-proxy/repository"
 )
 
 type Env struct {

@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/hiroyaonoe/bcop-proxy/proxy/entity"
+	"github.com/hiroyaonoe/bcop-proxy/entity"
 )
 
 type Env interface {
