@@ -2,6 +2,14 @@
 run: fmt
 	go run cmd/proxy/main.go --proxy-port 9000 --admin-port 9001 --default-addr localhost:9002 --propagate true
 
+.PHONY:docker-build
+docker-build: test
+	docker build -t bcop-proxy --ssh default .
+
+.PHONY:docker-run
+docker-run:
+	docker run -p 9000:9000 -p 9001:9001 bcop-proxy
+
 .PHONY:test
 test: vet fmt
 	go test ./...
