@@ -67,6 +67,7 @@ func (e *Env) Delete(c echo.Context) error {
 	err := e.uc.Delete(c.Request().Context(), envID)
 	if err != nil {
 		log.Error().Err(err).Msg("unexpected error DELETE /admin/env/:env-id")
+		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
 	return c.NoContent(http.StatusOK)
