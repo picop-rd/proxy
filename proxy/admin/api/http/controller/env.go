@@ -21,6 +21,7 @@ func NewEnv(uc *usecase.Env) *Env {
 func (e *Env) Get(c echo.Context) error {
 	envID := c.Param("env-id")
 	if len(envID) == 0 {
+		log.Debug().Msg("illegal param")
 		return echo.NewHTTPError(http.StatusBadRequest)
 	}
 
@@ -39,12 +40,14 @@ func (e *Env) Get(c echo.Context) error {
 func (e *Env) Put(c echo.Context) error {
 	envs := []entity.Env{}
 	if err := c.Bind(&envs); err != nil {
+		log.Debug().Err(err).Msg("illegal body")
 		return echo.NewHTTPError(http.StatusBadRequest)
 	}
 
 	err := e.uc.Register(c.Request().Context(), envs)
 	if err != nil {
 		if errors.Is(err, entity.ErrInvalid) {
+			log.Debug().Err(err).Msg("illegal envs")
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
 		log.Error().Err(err).Msg("unexpected error POST /admin/envs")
@@ -57,6 +60,7 @@ func (e *Env) Put(c echo.Context) error {
 func (e *Env) Delete(c echo.Context) error {
 	envID := c.Param("env-id")
 	if len(envID) == 0 {
+		log.Debug().Msg("illegal param")
 		return echo.NewHTTPError(http.StatusBadRequest)
 	}
 
