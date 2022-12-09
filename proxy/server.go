@@ -36,7 +36,8 @@ func (s *Server) Start(address string) {
 			if s.closed {
 				break
 			}
-			log.Fatal().Err(err).Str("listen address", address).Msg("failed to accept")
+			log.Error().Err(err).Str("listen address", address).Msg("failed to accept")
+			continue
 		}
 		go s.handle(bconn)
 	}
