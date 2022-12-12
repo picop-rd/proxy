@@ -48,15 +48,15 @@ func (e *Env) Put(c echo.Context) error {
 
 	err := e.uc.Register(c.Request().Context(), envs)
 	if err != nil {
-		logenvs := zerolog.Arr()
+		arrEnvs := zerolog.Arr()
 		for _, e := range envs {
-			logenvs = logenvs.Object(e)
+			arrEnvs = arrEnvs.Object(e)
 		}
 		if errors.Is(err, entity.ErrInvalid) {
-			log.Debug().Err(err).Array("envs", logenvs).Msg("illegal envs")
+			log.Debug().Err(err).Array("envs", arrEnvs).Msg("illegal envs")
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
-		log.Error().Err(err).Array("envs", logenvs).Msg("unexpected error POST /admin/envs")
+		log.Error().Err(err).Array("envs", arrEnvs).Msg("unexpected error POST /admin/envs")
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
