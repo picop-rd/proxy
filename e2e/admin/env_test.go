@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"sync"
 	"testing"
 	"time"
 
@@ -39,7 +40,8 @@ func prepareServer(t *testing.T) (string, func(), error) {
 	return "", nil, fmt.Errorf("failed to get listen addr")
 }
 
-func TestEnv_SenarioNormal1(t *testing.T) {
+func TestEnv_Senario_Normal1(t *testing.T) {
+	t.Parallel()
 	addr, closer, err := prepareServer(t)
 	if err != nil {
 		t.Fatalf("failed to listen server: %s", err)
@@ -103,4 +105,46 @@ func TestEnv_SenarioNormal1(t *testing.T) {
 			t.Errorf("Env.Get(): delete: non-nil error: gotEnv: %v", gotDeletedEnvA)
 		}
 	})
+}
+
+func TestEnv_Senario_TooManyRequest(t *testing.T) {
+	t.Parallel()
+	addr, closer, err := prepareServer(t)
+	if err != nil {
+		t.Fatalf("failed to listen server: %s", err)
+	}
+	defer closer()
+
+	cli := client.NewClient(&http.Client{}, fmt.Sprintf("http://%s", addr))
+	envCli := client.NewEnv(cli)
+
+	envA := entity.Env{
+		EnvID:       "A",
+		Destination: "destination:portA",
+	}
+	envB := entity.Env{
+		EnvID:       "B",
+		Destination: "destination:portB",
+	}
+
+	var wg sync.WaitGroup
+	for i := 0; i < 100; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			err := envCli.Register(context.Background(), []entity.Env{envA, envB})
+			if err != nil {
+				t.Errorf("Env.Register(): error = %v", err)
+			}
+			_, err = envCli.Get(context.Background(), "B")
+			if err != nil {
+				t.Errorf("Env.Get(): error = %v", err)
+			}
+			err = envCli.Delete(context.Background(), "A")
+			if err != nil {
+				t.Errorf("Env.Delete(): error = %v", err)
+			}
+		}()
+	}
+	wg.Wait()
 }
