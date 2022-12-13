@@ -40,11 +40,11 @@ func prepareServer(t *testing.T) (string, func(), error) {
 }
 
 func TestEnv_SenarioNormal1(t *testing.T) {
-	addr, close, err := prepareServer(t)
+	addr, closer, err := prepareServer(t)
 	if err != nil {
 		t.Fatalf("failed to listen server: %s", err)
 	}
-	defer close()
+	defer closer()
 
 	cli := client.NewClient(&http.Client{}, fmt.Sprintf("http://%s", addr))
 	envCli := client.NewEnv(cli)
