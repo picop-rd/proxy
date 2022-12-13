@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/google/go-cmp v0.5.9
-	github.com/hiroyaonoe/bcop-go v0.0.0-20221209170220-55e58d366c9c
+	github.com/hiroyaonoe/bcop-go v0.0.0-20221213081634-af5de2755164
 	github.com/labstack/echo/v4 v4.9.1
 	github.com/rs/zerolog v1.28.0
 	go.opentelemetry.io/otel v1.11.2
