@@ -5,11 +5,11 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/hiroyaonoe/bcop-proxy/admin/api/http/server"
-	"github.com/hiroyaonoe/bcop-proxy/admin/api/http/server/controller"
-	"github.com/hiroyaonoe/bcop-proxy/admin/usecase"
-	"github.com/hiroyaonoe/bcop-proxy/proxy"
-	"github.com/hiroyaonoe/bcop-proxy/repository/inmemory"
+	"github.com/hiroyaonoe/bcop-proxy/app/admin/api/http/server"
+	"github.com/hiroyaonoe/bcop-proxy/app/admin/api/http/server/controller"
+	"github.com/hiroyaonoe/bcop-proxy/app/admin/usecase"
+	"github.com/hiroyaonoe/bcop-proxy/app/proxy"
+	"github.com/hiroyaonoe/bcop-proxy/app/repository/inmemory"
 )
 
 func main() {
