@@ -39,7 +39,7 @@ func (e *Env) Get(c echo.Context) error {
 	return c.JSON(http.StatusOK, env)
 }
 
-func (e *Env) Put(c echo.Context) error {
+func (e *Env) Register(c echo.Context) error {
 	envs := []entity.Env{}
 	if err := c.Bind(&envs); err != nil {
 		log.Debug().Err(err).Msg("illegal body")
