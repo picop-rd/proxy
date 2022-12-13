@@ -1,6 +1,7 @@
 package admin
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"testing"
@@ -58,14 +59,14 @@ func TestEnv_SenarioNormal1(t *testing.T) {
 	}
 
 	t.Run("新しいEnvを登録できる", func(t *testing.T) {
-		err = envCli.Register([]entity.Env{envA, envB})
+		err = envCli.Register(context.Background(), []entity.Env{envA, envB})
 		if err != nil {
 			t.Errorf("Env.Register(): error = %v", err)
 		}
 	})
 
 	t.Run("登録済みのEnvを取得できる", func(t *testing.T) {
-		gotEnvA, err := envCli.Get("A")
+		gotEnvA, err := envCli.Get(context.Background(), "A")
 		if err != nil {
 			t.Errorf("Env.Get(): error = %v", err)
 		}
@@ -79,11 +80,11 @@ func TestEnv_SenarioNormal1(t *testing.T) {
 			EnvID:       "A",
 			Destination: "modifiedDestination:portA",
 		}
-		err = envCli.Register([]entity.Env{modifiedEnvA})
+		err = envCli.Register(context.Background(), []entity.Env{modifiedEnvA})
 		if err != nil {
 			t.Errorf("Env.Register(): error = %v", err)
 		}
-		gotModifiedEnvA, err := envCli.Get("A")
+		gotModifiedEnvA, err := envCli.Get(context.Background(), "A")
 		if err != nil {
 			t.Errorf("Env.Get(): error = %v", err)
 		}
@@ -93,11 +94,11 @@ func TestEnv_SenarioNormal1(t *testing.T) {
 	})
 
 	t.Run("Delete: 登録済みのEnvを削除できる", func(t *testing.T) {
-		err = envCli.Delete("A")
+		err = envCli.Delete(context.Background(), "A")
 		if err != nil {
 			t.Errorf("Env.Delete(): delete: error = %v", err)
 		}
-		gotDeletedEnvA, err := envCli.Get("A")
+		gotDeletedEnvA, err := envCli.Get(context.Background(), "A")
 		if err == nil {
 			t.Errorf("Env.Get(): delete: non-nil error: gotEnv: %v", gotDeletedEnvA)
 		}

@@ -2,6 +2,7 @@ package client
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -19,8 +20,8 @@ func NewEnv(client *Client) *Env {
 	}
 }
 
-func (e *Env) Get(envID string) (entity.Env, error) {
-	resp, err := e.client.Get([]string{"admin", "env", envID})
+func (e *Env) Get(ctx context.Context, envID string) (entity.Env, error) {
+	resp, err := e.client.Get(ctx, []string{"admin", "env", envID})
 	if err != nil {
 		return entity.Env{}, fmt.Errorf("proxy admin client: Get: failed to request: %w", err)
 	}
@@ -38,12 +39,12 @@ func (e *Env) Get(envID string) (entity.Env, error) {
 	return env, nil
 }
 
-func (e *Env) Register(envs []entity.Env) error {
+func (e *Env) Register(ctx context.Context, envs []entity.Env) error {
 	byteBody, err := json.Marshal(envs)
 	if err != nil {
 		return fmt.Errorf("proxy admin client: Register: failed to encode json from envs: %w", err)
 	}
-	resp, err := e.client.Put([]string{"admin", "envs"}, "application/json", bytes.NewReader(byteBody))
+	resp, err := e.client.Put(ctx, []string{"admin", "envs"}, "application/json", bytes.NewReader(byteBody))
 	if err != nil {
 		return fmt.Errorf("proxy admin client: Register: failed to request: %w", err)
 	}
@@ -53,8 +54,8 @@ func (e *Env) Register(envs []entity.Env) error {
 	return nil
 }
 
-func (e *Env) Delete(envID string) error {
-	resp, err := e.client.Delete([]string{"admin", "env", envID})
+func (e *Env) Delete(ctx context.Context, envID string) error {
+	resp, err := e.client.Delete(ctx, []string{"admin", "env", envID})
 	if err != nil {
 		return fmt.Errorf("proxy admin client: Delete: failed to request: %w", err)
 	}

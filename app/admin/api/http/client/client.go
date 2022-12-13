@@ -1,6 +1,7 @@
 package client
 
 import (
+	"context"
 	"io"
 	"net/http"
 	"net/url"
@@ -18,20 +19,24 @@ func NewClient(client *http.Client, base string) *Client {
 	}
 }
 
-func (c *Client) Get(pathElem []string) (*http.Response, error) {
+func (c *Client) Get(ctx context.Context, pathElem []string) (*http.Response, error) {
 	reqURL, err := url.JoinPath(c.base, pathElem...)
 	if err != nil {
 		return nil, err
 	}
-	return c.client.Get(reqURL)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, reqURL, nil)
+	if err != nil {
+		return nil, err
+	}
+	return c.client.Do(req)
 }
 
-func (c *Client) Put(pathElem []string, contentType string, body io.Reader) (*http.Response, error) {
+func (c *Client) Put(ctx context.Context, pathElem []string, contentType string, body io.Reader) (*http.Response, error) {
 	reqURL, err := url.JoinPath(c.base, pathElem...)
 	if err != nil {
 		return nil, err
 	}
-	req, err := http.NewRequest(http.MethodPut, reqURL, body)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPut, reqURL, body)
 	if err != nil {
 		return nil, err
 	}
@@ -39,12 +44,12 @@ func (c *Client) Put(pathElem []string, contentType string, body io.Reader) (*ht
 	return c.client.Do(req)
 }
 
-func (c *Client) Delete(pathElem []string) (*http.Response, error) {
+func (c *Client) Delete(ctx context.Context, pathElem []string) (*http.Response, error) {
 	reqURL, err := url.JoinPath(c.base, pathElem...)
 	if err != nil {
 		return nil, err
 	}
-	req, err := http.NewRequest(http.MethodDelete, reqURL, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodDelete, reqURL, nil)
 	if err != nil {
 		return nil, err
 	}
