@@ -1,6 +1,6 @@
 module github.com/hiroyaonoe/bcop-proxy
 
-go 1.18
+go 1.19
 
 require (
 	github.com/hiroyaonoe/bcop-go v0.0.0-20221209170220-55e58d366c9c
