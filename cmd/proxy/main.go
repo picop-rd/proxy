@@ -5,8 +5,8 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/hiroyaonoe/bcop-proxy/admin/api/http"
-	"github.com/hiroyaonoe/bcop-proxy/admin/api/http/controller"
+	"github.com/hiroyaonoe/bcop-proxy/admin/api/http/server"
+	"github.com/hiroyaonoe/bcop-proxy/admin/api/http/server/controller"
 	"github.com/hiroyaonoe/bcop-proxy/admin/usecase"
 	"github.com/hiroyaonoe/bcop-proxy/proxy"
 	"github.com/hiroyaonoe/bcop-proxy/repository/inmemory"
@@ -25,7 +25,7 @@ func main() {
 
 	ucEnv := usecase.NewEnv(repoEnv)
 	ctrlEnv := controller.NewEnv(ucEnv)
-	adminSrv := http.NewServer(ctrlEnv)
+	adminSrv := server.NewServer(ctrlEnv)
 	adminSrv.SetRoute()
 
 	proxySrv := &proxy.Server{
