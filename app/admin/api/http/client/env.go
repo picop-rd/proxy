@@ -54,7 +54,7 @@ func (e *Env) Register(envs []entity.Env) error {
 }
 
 func (e *Env) Delete(envID string) error {
-	resp, err := e.client.Delete([]string{"admin", "envs", envID})
+	resp, err := e.client.Delete([]string{"admin", "env", envID})
 	if err != nil {
 		return fmt.Errorf("proxy admin client: Delete: failed to request: %w", err)
 	}

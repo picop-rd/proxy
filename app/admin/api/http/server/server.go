@@ -12,8 +12,8 @@ import (
 )
 
 type Server struct {
-	echo *echo.Echo
-	env  *controller.Env
+	*echo.Echo
+	env *controller.Env
 }
 
 func NewServer(env *controller.Env) *Server {
@@ -36,13 +36,13 @@ func NewServer(env *controller.Env) *Server {
 		},
 	}))
 	return &Server{
-		echo: e,
+		Echo: e,
 		env:  env,
 	}
 }
 
 func (s *Server) SetRoute() {
-	admin := s.echo.Group("/admin")
+	admin := s.Echo.Group("/admin")
 
 	admin.GET("/env/:env-id", s.env.Get)
 	admin.PUT("/envs", s.env.Register)
@@ -50,7 +50,7 @@ func (s *Server) SetRoute() {
 }
 
 func (s *Server) Run(address string) {
-	if err := s.echo.Start(address); err != nil && err != http.ErrServerClosed {
+	if err := s.Echo.Start(address); err != nil && err != http.ErrServerClosed {
 		log.Fatal().Err(err).Msg("shutting down the server")
 	}
 }
@@ -61,7 +61,7 @@ func (s *Server) Close() {
 	// Use a buffered channel to avoid missing signals as recommended for signal.Notify
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	if err := s.echo.Shutdown(ctx); err != nil {
+	if err := s.Echo.Shutdown(ctx); err != nil {
 		log.Fatal().Err(err).Msg("failed to shutdown")
 	}
 }
