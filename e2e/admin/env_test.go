@@ -107,7 +107,7 @@ func TestEnv_Senario_Normal1(t *testing.T) {
 	})
 }
 
-func TestEnv_Senario_TooManyRequest(t *testing.T) {
+func TestEnv_Senario_ConcurrentRequest(t *testing.T) {
 	t.Parallel()
 	addr, closer, err := prepareServer(t)
 	if err != nil {
