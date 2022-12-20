@@ -19,5 +19,5 @@ COPY --from=builder /bcop-proxy /bin/bcop-proxy
 EXPOSE 9000
 EXPOSE 9001
 ENTRYPOINT [ "/bin/bcop-proxy" ]
-CMD [ "--proxy-port", "9000", "--admin-port", "9001", "--default-addr", "localhost:9002", "--propagate", "true" ]
+CMD [ "--proxy-port", "9000", "--admin-port", "9001", "--default-addr", "localhost:9002", "--propagate=true"]
 
