@@ -16,8 +16,6 @@ RUN CGO_ENABLED=0 go build -o /bcop-proxy ./cmd/proxy/main.go
 FROM scratch
 
 COPY --from=builder /bcop-proxy /bin/bcop-proxy
-EXPOSE 9000
-EXPOSE 9001
 ENTRYPOINT [ "/bin/bcop-proxy" ]
 CMD [ "--proxy-port", "9000", "--admin-port", "9001", "--default-addr", "localhost:9002", "--propagate=true", "--controller-url", "http://localhost:8080", "--id", ""]
 
