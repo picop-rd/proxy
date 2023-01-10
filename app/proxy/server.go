@@ -63,14 +63,6 @@ func (s *Server) handle(clientConn *bcopnet.Conn) {
 	}
 
 	envID := header.Get(propagation.EnvIDHeader)
-	if len(envID) == 0 {
-		log.Error().
-			Err(err).
-			Stringer("client local address", clientConn.LocalAddr()).
-			Stringer("client remote address", clientConn.RemoteAddr()).
-			Msg("failed to get env-id")
-		return
-	}
 
 	ctx := context.Background()
 
