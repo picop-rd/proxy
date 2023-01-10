@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/google/go-cmp v0.5.9
-	github.com/hiroyaonoe/bcop-go v0.0.0-20230110092136-e563a7122471
+	github.com/hiroyaonoe/bcop-go v0.0.0-20230110173130-ccd8403dfdc4
 	github.com/hiroyaonoe/bcop-proxy-controller v0.0.0-20221229145744-cb46155e746d
 	github.com/labstack/echo/v4 v4.10.0
 	github.com/rs/zerolog v1.28.0
