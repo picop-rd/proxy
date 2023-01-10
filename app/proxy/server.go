@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net"
 
+	"github.com/hiroyaonoe/bcop-go/propagation"
 	bcopnet "github.com/hiroyaonoe/bcop-go/protocol/net"
 	"github.com/hiroyaonoe/bcop-proxy/app/entity"
 	"github.com/hiroyaonoe/bcop-proxy/app/repository"
@@ -12,12 +13,11 @@ import (
 )
 
 type Server struct {
-	Env                         repository.Env
-	GetEnvIDFromHeaderValueFunc func(string) (string, error)
-	Propagate                   bool
-	DefaultAddr                 string
-	closed                      bool
-	listener                    bcopnet.Listener
+	Env         repository.Env
+	Propagate   bool
+	DefaultAddr string
+	closed      bool
+	listener    bcopnet.Listener
 }
 
 func (s *Server) Start(address string) {
@@ -62,13 +62,13 @@ func (s *Server) handle(clientConn *bcopnet.Conn) {
 		return
 	}
 
-	envID, err := s.GetEnvIDFromHeaderValueFunc(header.Get())
-	if err != nil {
+	envID := header.Get(propagation.EnvIDHeader)
+	if len(envID) == 0 {
 		log.Error().
 			Err(err).
 			Stringer("client local address", clientConn.LocalAddr()).
 			Stringer("client remote address", clientConn.RemoteAddr()).
-			Msg("failed to parse BCoP header")
+			Msg("failed to get env-id")
 		return
 	}
 

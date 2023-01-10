@@ -39,10 +39,9 @@ func main() {
 	adminSrv.SetRoute()
 
 	proxySrv := &proxy.Server{
-		Env:                         repoEnv,
-		GetEnvIDFromHeaderValueFunc: proxy.GetEnvIDFromBaggage,
-		Propagate:                   *propagate,
-		DefaultAddr:                 *defaultAddr,
+		Env:         repoEnv,
+		Propagate:   *propagate,
+		DefaultAddr: *defaultAddr,
 	}
 
 	go adminSrv.Run(":" + *adminPort)
