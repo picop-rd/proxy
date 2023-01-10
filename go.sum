@@ -9,10 +9,6 @@ github.com/golang-jwt/jwt v3.2.2+incompatible h1:IfV12K8xAKAnZqdXVzCZ+TOjboZ2keL
 github.com/golang-jwt/jwt v3.2.2+incompatible/go.mod h1:8pz2t5EyA70fFQQSrl6XZXzqecmYZeUEB8OUGHkxJ+I=
 github.com/google/go-cmp v0.5.9 h1:O2Tfq5qg4qc4AmwVlvv0oLiVAGB7enBSJ2x2DqQFi38=
 github.com/google/go-cmp v0.5.9/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
-github.com/hiroyaonoe/bcop-go v0.0.0-20230110092136-e563a7122471 h1:x3MfQjkkisiXN47w4yOUzOsjQNSNFXuRW9+aUBRvPa0=
-github.com/hiroyaonoe/bcop-go v0.0.0-20230110092136-e563a7122471/go.mod h1:+L1Dgciw8a+zDTF9/DTj6+hcDbIz/ngL4+/+3hJKMqk=
-github.com/hiroyaonoe/bcop-go v0.0.0-20230110172551-8ec29ead8b5d h1:/DbHCjLhd+sTzIZ1dhPVsOBHS1f4w2tpbZjtS/tlsYk=
-github.com/hiroyaonoe/bcop-go v0.0.0-20230110172551-8ec29ead8b5d/go.mod h1:+L1Dgciw8a+zDTF9/DTj6+hcDbIz/ngL4+/+3hJKMqk=
 github.com/hiroyaonoe/bcop-go v0.0.0-20230110173130-ccd8403dfdc4 h1:PnmxikmTNKGm70D3ou7mW9Xj/SYE4uUj6U3Glrinyx0=
 github.com/hiroyaonoe/bcop-go v0.0.0-20230110173130-ccd8403dfdc4/go.mod h1:+L1Dgciw8a+zDTF9/DTj6+hcDbIz/ngL4+/+3hJKMqk=
 github.com/hiroyaonoe/bcop-proxy-controller v0.0.0-20221229145744-cb46155e746d h1:IJ8fN3/LJF0/hi+tBMIotGQKAGPyeI9gm2jKui42AiQ=
