@@ -9,10 +9,6 @@ github.com/golang-jwt/jwt v3.2.2+incompatible h1:IfV12K8xAKAnZqdXVzCZ+TOjboZ2keL
 github.com/golang-jwt/jwt v3.2.2+incompatible/go.mod h1:8pz2t5EyA70fFQQSrl6XZXzqecmYZeUEB8OUGHkxJ+I=
 github.com/google/go-cmp v0.5.9 h1:O2Tfq5qg4qc4AmwVlvv0oLiVAGB7enBSJ2x2DqQFi38=
 github.com/google/go-cmp v0.5.9/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
-github.com/hiroyaonoe/bcop-go v0.0.0-20230110173130-ccd8403dfdc4 h1:PnmxikmTNKGm70D3ou7mW9Xj/SYE4uUj6U3Glrinyx0=
-github.com/hiroyaonoe/bcop-go v0.0.0-20230110173130-ccd8403dfdc4/go.mod h1:+L1Dgciw8a+zDTF9/DTj6+hcDbIz/ngL4+/+3hJKMqk=
-github.com/hiroyaonoe/bcop-proxy-controller v0.0.0-20221229145744-cb46155e746d h1:IJ8fN3/LJF0/hi+tBMIotGQKAGPyeI9gm2jKui42AiQ=
-github.com/hiroyaonoe/bcop-proxy-controller v0.0.0-20221229145744-cb46155e746d/go.mod h1:fy9TuPGkf6F40xwW7flA4Pg4IiZYLifU1vTvdpqQ3FM=
 github.com/labstack/echo/v4 v4.10.0 h1:5CiyngihEO4HXsz3vVsJn7f8xAlWwRr3aY6Ih280ZKA=
 github.com/labstack/echo/v4 v4.10.0/go.mod h1:S/T/5fy/GigaXnHTkh0ZGe4LpkkQysvRjFMSUTkDRNQ=
 github.com/labstack/gommon v0.4.0 h1:y7cvthEAEbU0yHOf4axH8ZG2NH8knB9iNSoTO8dyIk8=
@@ -25,6 +21,10 @@ github.com/mattn/go-isatty v0.0.14/go.mod h1:7GGIvUiUoEMVVmxf/4nioHXj79iQHKdU27k
 github.com/mattn/go-isatty v0.0.16/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/yFXSvRLM=
 github.com/mattn/go-isatty v0.0.17 h1:BTarxUcIeDqL27Mc+vyvdWYSL28zpIhv3RoTdsLMPng=
 github.com/mattn/go-isatty v0.0.17/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/yFXSvRLM=
+github.com/picop-rd/picop-go v0.0.0-20230329085820-a9a0ec385191 h1:VHi7Zmm7s+oePHSigcInYqVAeGfs3sNequBg3sDCFQw=
+github.com/picop-rd/picop-go v0.0.0-20230329085820-a9a0ec385191/go.mod h1:4+d7Meok7rDJDptgT7Kpx4Fp/oKMZZ1LF/5S14TNdmQ=
+github.com/picop-rd/proxy-controller v0.0.0-20230329093651-f20fded95d6d h1:G5RqLsioX/dKzO4duMHUpb0fSHfBfrfeIyj8DkvNBZs=
+github.com/picop-rd/proxy-controller v0.0.0-20230329093651-f20fded95d6d/go.mod h1:pafsZWc8mZSa6W970XztCDaDxTqmhYc0q8l6DrTOdKo=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
