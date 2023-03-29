@@ -1,2 +1,2 @@
 # proxy
-Proxy to route rewuests based on PiCoP headers
+Proxy to route requests based on PiCoP headers
