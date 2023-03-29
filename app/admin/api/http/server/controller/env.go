@@ -4,9 +4,9 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/hiroyaonoe/bcop-proxy/app/admin/usecase"
-	"github.com/hiroyaonoe/bcop-proxy/app/entity"
 	echo "github.com/labstack/echo/v4"
+	"github.com/picop-rd/proxy/app/admin/usecase"
+	"github.com/picop-rd/proxy/app/entity"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )

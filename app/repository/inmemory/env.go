@@ -4,8 +4,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/hiroyaonoe/bcop-proxy/app/entity"
-	"github.com/hiroyaonoe/bcop-proxy/app/repository"
+	"github.com/picop-rd/proxy/app/entity"
+	"github.com/picop-rd/proxy/app/repository"
 )
 
 type Env struct {

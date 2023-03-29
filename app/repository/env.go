@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/hiroyaonoe/bcop-proxy/app/entity"
+	"github.com/picop-rd/proxy/app/entity"
 )
 
 type Env interface {

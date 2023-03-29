@@ -1,2 +1,2 @@
-# bcop-proxy
-BCoPヘッダに基づいてリクエストを振り分けるプロキシ
+# proxy
+Proxy to route rewuests based on PiCoP headers

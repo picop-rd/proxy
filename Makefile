@@ -1,10 +1,10 @@
 .PHONY:docker-build
 docker-build: test
-	docker build -t bcop-proxy --ssh default .
+	docker build -t proxy --ssh default .
 
 .PHONY:docker-run
 docker-run:
-	docker run -p 9000:9000 -p 9001:9001 bcop-proxy
+	docker run -p 9000:9000 -p 9001:9001 proxy
 
 .PHONY:test
 test: vet fmt

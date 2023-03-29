@@ -8,12 +8,12 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/hiroyaonoe/bcop-proxy-controller/app/api/http/client"
-	"github.com/hiroyaonoe/bcop-proxy/app/admin/api/http/server"
-	"github.com/hiroyaonoe/bcop-proxy/app/admin/api/http/server/controller"
-	"github.com/hiroyaonoe/bcop-proxy/app/admin/usecase"
-	"github.com/hiroyaonoe/bcop-proxy/app/proxy"
-	"github.com/hiroyaonoe/bcop-proxy/app/repository/inmemory"
+	"github.com/picop-rd/proxy-controller/app/api/http/client"
+	"github.com/picop-rd/proxy/app/admin/api/http/server"
+	"github.com/picop-rd/proxy/app/admin/api/http/server/controller"
+	"github.com/picop-rd/proxy/app/admin/usecase"
+	"github.com/picop-rd/proxy/app/proxy"
+	"github.com/picop-rd/proxy/app/repository/inmemory"
 	"github.com/rs/zerolog/log"
 )
 

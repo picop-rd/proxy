@@ -5,10 +5,10 @@ import (
 	"errors"
 	"net"
 
-	"github.com/hiroyaonoe/bcop-go/propagation"
-	bcopnet "github.com/hiroyaonoe/bcop-go/protocol/net"
-	"github.com/hiroyaonoe/bcop-proxy/app/entity"
-	"github.com/hiroyaonoe/bcop-proxy/app/repository"
+	"github.com/picop-rd/picop-go/propagation"
+	picopnet "github.com/picop-rd/picop-go/protocol/net"
+	"github.com/picop-rd/proxy/app/entity"
+	"github.com/picop-rd/proxy/app/repository"
 	"github.com/rs/zerolog/log"
 )
 
@@ -17,7 +17,7 @@ type Server struct {
 	Propagate   bool
 	DefaultAddr string
 	closed      bool
-	listener    bcopnet.Listener
+	listener    picopnet.Listener
 }
 
 func (s *Server) Start(address string) {
@@ -26,12 +26,12 @@ func (s *Server) Start(address string) {
 	if err != nil {
 		log.Fatal().Err(err).Str("listen address", address).Msg("failed to listen")
 	}
-	s.listener = bcopnet.NewListener(ln)
+	s.listener = picopnet.NewListener(ln)
 	defer s.listener.Close()
 
 	log.Info().Msg("starting server")
 	for {
-		bconn, err := s.listener.AcceptWithBCoPConn()
+		bconn, err := s.listener.AcceptWithPiCoPConn()
 		if err != nil {
 			if s.closed {
 				break
@@ -49,7 +49,7 @@ func (s *Server) Close() {
 	s.listener.Close()
 }
 
-func (s *Server) handle(clientConn *bcopnet.Conn) {
+func (s *Server) handle(clientConn *picopnet.Conn) {
 	defer clientConn.Close()
 
 	header, err := clientConn.ReadHeader()
@@ -58,7 +58,7 @@ func (s *Server) handle(clientConn *bcopnet.Conn) {
 			Err(err).
 			Stringer("client local address", clientConn.LocalAddr()).
 			Stringer("client remote address", clientConn.RemoteAddr()).
-			Msg("invalid BCoP header")
+			Msg("invalid PiCoP header")
 		return
 	}
 

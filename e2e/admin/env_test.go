@@ -9,12 +9,12 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/hiroyaonoe/bcop-proxy/app/admin/api/http/client"
-	"github.com/hiroyaonoe/bcop-proxy/app/admin/api/http/server"
-	"github.com/hiroyaonoe/bcop-proxy/app/admin/api/http/server/controller"
-	"github.com/hiroyaonoe/bcop-proxy/app/admin/usecase"
-	"github.com/hiroyaonoe/bcop-proxy/app/entity"
-	"github.com/hiroyaonoe/bcop-proxy/app/repository/inmemory"
+	"github.com/picop-rd/proxy/app/admin/api/http/client"
+	"github.com/picop-rd/proxy/app/admin/api/http/server"
+	"github.com/picop-rd/proxy/app/admin/api/http/server/controller"
+	"github.com/picop-rd/proxy/app/admin/usecase"
+	"github.com/picop-rd/proxy/app/entity"
+	"github.com/picop-rd/proxy/app/repository/inmemory"
 )
 
 func prepareServer(t *testing.T) (string, func(), error) {

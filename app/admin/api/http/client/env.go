@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/hiroyaonoe/bcop-proxy/app/entity"
+	"github.com/picop-rd/proxy/app/entity"
 )
 
 type Env struct {
