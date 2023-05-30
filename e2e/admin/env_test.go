@@ -60,14 +60,14 @@ func TestEnv_Senario_Normal1(t *testing.T) {
 		Destination: "destination:portB",
 	}
 
-	t.Run("新しいEnvを登録できる", func(t *testing.T) {
+	t.Run("It can register a new Env.", func(t *testing.T) {
 		err = envCli.Register(context.Background(), []entity.Env{envA, envB})
 		if err != nil {
 			t.Errorf("Env.Register(): error = %v", err)
 		}
 	})
 
-	t.Run("登録済みのEnvを取得できる", func(t *testing.T) {
+	t.Run("It can get a registered Env.", func(t *testing.T) {
 		gotEnvA, err := envCli.Get(context.Background(), "A")
 		if err != nil {
 			t.Errorf("Env.Get(): error = %v", err)
@@ -77,7 +77,7 @@ func TestEnv_Senario_Normal1(t *testing.T) {
 		}
 	})
 
-	t.Run("登録済みのEnvのDestinationを変更できる", func(t *testing.T) {
+	t.Run("It can update the Destination of a registered Env.", func(t *testing.T) {
 		modifiedEnvA := entity.Env{
 			EnvID:       "A",
 			Destination: "modifiedDestination:portA",
@@ -95,7 +95,7 @@ func TestEnv_Senario_Normal1(t *testing.T) {
 		}
 	})
 
-	t.Run("Delete: 登録済みのEnvを削除できる", func(t *testing.T) {
+	t.Run("It can delete a registered Env.", func(t *testing.T) {
 		err = envCli.Delete(context.Background(), "A")
 		if err != nil {
 			t.Errorf("Env.Delete(): delete: error = %v", err)
