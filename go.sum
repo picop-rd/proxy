@@ -23,6 +23,8 @@ github.com/mattn/go-isatty v0.0.17 h1:BTarxUcIeDqL27Mc+vyvdWYSL28zpIhv3RoTdsLMPn
 github.com/mattn/go-isatty v0.0.17/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/yFXSvRLM=
 github.com/picop-rd/picop-go v0.0.0-20230329085820-a9a0ec385191 h1:VHi7Zmm7s+oePHSigcInYqVAeGfs3sNequBg3sDCFQw=
 github.com/picop-rd/picop-go v0.0.0-20230329085820-a9a0ec385191/go.mod h1:4+d7Meok7rDJDptgT7Kpx4Fp/oKMZZ1LF/5S14TNdmQ=
+github.com/picop-rd/picop-go v0.1.0 h1:jGsz9gKkke64UcqpnuvUT9s017WNVUr/unr82XOfG9o=
+github.com/picop-rd/picop-go v0.1.0/go.mod h1:4+d7Meok7rDJDptgT7Kpx4Fp/oKMZZ1LF/5S14TNdmQ=
 github.com/picop-rd/proxy-controller v0.0.0-20230329093651-f20fded95d6d h1:G5RqLsioX/dKzO4duMHUpb0fSHfBfrfeIyj8DkvNBZs=
 github.com/picop-rd/proxy-controller v0.0.0-20230329093651-f20fded95d6d/go.mod h1:pafsZWc8mZSa6W970XztCDaDxTqmhYc0q8l6DrTOdKo=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=

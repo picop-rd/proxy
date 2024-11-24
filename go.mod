@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/google/go-cmp v0.5.9
 	github.com/labstack/echo/v4 v4.10.0
-	github.com/picop-rd/picop-go v0.0.0-20230329085820-a9a0ec385191
+	github.com/picop-rd/picop-go v0.1.0
 	github.com/picop-rd/proxy-controller v0.0.0-20230329093651-f20fded95d6d
 	github.com/rs/zerolog v1.28.0
 	golang.org/x/sync v0.1.0

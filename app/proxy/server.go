@@ -16,6 +16,7 @@ type Server struct {
 	Env         repository.Env
 	Propagate   bool
 	DefaultAddr string
+	BufSize     int
 	closed      bool
 	listener    picopnet.Listener
 }
@@ -111,7 +112,7 @@ func (s *Server) handle(clientConn *picopnet.Conn) {
 		}
 	}
 
-	err = proxy(clientConn, serverConn)
+	err = proxy(clientConn, serverConn, s.BufSize)
 	if err != nil {
 		log.Error().
 			Err(err).

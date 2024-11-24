@@ -24,6 +24,7 @@ func main() {
 	defaultAddr := flag.String("default-addr", "", "default address")
 	controllerURL := flag.String("controller-url", "http://localhost:8080", "proxy controller url")
 	id := flag.String("id", "", "proxy id")
+	bufSize := flag.Int("buf", 32*1024, "buffer size")
 
 	flag.Parse()
 
@@ -42,6 +43,7 @@ func main() {
 		Env:         repoEnv,
 		Propagate:   *propagate,
 		DefaultAddr: *defaultAddr,
+		BufSize:     *bufSize,
 	}
 
 	go adminSrv.Run(":" + *adminPort)
