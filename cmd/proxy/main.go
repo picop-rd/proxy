@@ -8,6 +8,9 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/felixge/fgprof"
+	_ "net/http/pprof"
+
 	"github.com/picop-rd/proxy-controller/app/api/http/client"
 	"github.com/picop-rd/proxy/app/admin/api/http/server"
 	"github.com/picop-rd/proxy/app/admin/api/http/server/controller"
@@ -18,6 +21,11 @@ import (
 )
 
 func main() {
+	http.DefaultServeMux.Handle("/debug/fgprof", fgprof.Handler())
+	go func() {
+		log.Error().Err(http.ListenAndServe("0.0.0.0:6060", nil)).Msg("failed to start pprof")
+	}()
+
 	adminPort := flag.String("admin-port", "9001", "admin listen port")
 	proxyPort := flag.String("proxy-port", "9000", "proxy listen port")
 	propagate := flag.Bool("propagate", true, "header propagation?")
