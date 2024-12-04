@@ -4,7 +4,9 @@ import (
 	"context"
 	"errors"
 	"net"
+	"time"
 
+	"github.com/abursavich/nett"
 	"github.com/picop-rd/picop-go/propagation"
 	picopnet "github.com/picop-rd/picop-go/protocol/net"
 	"github.com/picop-rd/proxy/app/entity"
@@ -19,6 +21,7 @@ type Server struct {
 	BufSize     int
 	closed      bool
 	listener    picopnet.Listener
+	dialer      *nett.Dialer
 }
 
 func (s *Server) Start(address string) {
@@ -29,6 +32,10 @@ func (s *Server) Start(address string) {
 	}
 	s.listener = picopnet.NewListener(ln)
 	defer s.listener.Close()
+
+	s.dialer = &nett.Dialer{
+		Resolver: &nett.CacheResolver{TTL: 1 * time.Minute},
+	}
 
 	log.Info().Msg("starting server")
 	for {
@@ -85,7 +92,7 @@ func (s *Server) handle(clientConn *picopnet.Conn) {
 		serverAddr = env.Destination
 	}
 
-	serverConn, err := net.Dial("tcp", serverAddr)
+	serverConn, err := s.dialer.Dial("tcp", serverAddr)
 	if err != nil {
 		log.Error().
 			Err(err).

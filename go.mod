@@ -12,6 +12,7 @@ require (
 )
 
 require (
+	github.com/abursavich/nett v0.0.0-20150117192851-f31118c7aeb9
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/google/pprof v0.0.0-20240227163752-401108e1b7e7 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
